@@ -236,6 +236,8 @@ spec:
 {{ tuple $envAll "libvirt_exporter" | include "helm-toolkit.snippets.image" | indent 10 }}
 {{ tuple $envAll $envAll.Values.pod.resources.libvirt_exporter | include "helm-toolkit.snippets.kubernetes_resources" | indent 10 }}
 {{ dict "envAll" $envAll "application" "libvirt" "container" "libvirt_exporter" | include "helm-toolkit.snippets.kubernetes_container_security_context" | indent 10 }}
+          command:
+            - /tmp/libvirt_exporter.sh
           ports:
             - name: metrics
               protocol: TCP
@@ -249,6 +251,10 @@ spec:
               path: /
               port: metrics
           volumeMounts:
+            - name: libvirt-bin
+              mountPath: /tmp/libvirt_exporter.sh
+              subPath: libvirt_exporter.sh
+              readOnly: true
             - name: run
               mountPath: /run
               {{- if or ( gt .Capabilities.KubeVersion.Major "1" ) ( ge .Capabilities.KubeVersion.Minor "10" ) }}
