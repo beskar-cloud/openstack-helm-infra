@@ -31,5 +31,7 @@ data:
 {{ tuple "bin/_ceph-keyring.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
   ceph-admin-keyring.sh: |
 {{ tuple "bin/_ceph-admin-keyring.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
+  libvirt_exporter.sh: |
+{{ tuple "bin/_libvirt_exporter.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
 {{- end }}
 {{- end }}

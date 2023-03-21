@@ -153,6 +153,8 @@ pod:
           privileged: true
   sidecars:
     libvirt_exporter: false
+    libvirt_exporter_custom_command: |
+      /libvirtd_exporter --libvirt.nova
 
   affinity:
     anti:
